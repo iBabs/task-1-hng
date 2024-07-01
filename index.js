@@ -53,6 +53,7 @@ const getWeatherFromCoords = async (latitude, longitude) => {
 
 
 app.get('/api', async (req, res) => {
+    const {name} = req.query || 'User';
     const ip = getClientIp(req);
     const locationData = await getLocationFromIp(ip);
     if (!locationData) {
@@ -66,7 +67,7 @@ app.get('/api', async (req, res) => {
     }
 
     const temperature = weatherData.current_weather.temperature;
-    const greeting = `Hello! The temperature is ${temperature} degrees Celsius in ${city}`;
+    const greeting = `Hello ${name}! The temperature is ${temperature} degrees Celsius in ${city}`;
 
     res.json({
         client_ip: ip,
